@@ -3,4 +3,4 @@
 class Machine:
     def __init__(self, ip, ports):
         self.ip = ip
-        self.ports = []
+        self.ports = ports

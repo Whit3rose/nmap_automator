@@ -1,2 +1,4 @@
 test_nmap.xml
 __pycache__/
+passwords.txt
+users.txt
