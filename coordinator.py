@@ -4,6 +4,7 @@ import paramiko
 import socket
 
 import nmap_parser
+import ssh
 
 nmap_filename = 'test_nmap.xml'
 all_machines = nmap_parser.parse_nmap_file(nmap_filename)
@@ -27,5 +28,5 @@ for machine in all_machines:
         print(f"Open Ports: {port.portid}, Running Protokol: {port.protocol}")
 
         # SSH
-        if port.portid == 22:
-            ssh_test_all(machine, all_users, all_passwords)
+        if port.portid == "22":
+            ssh.ssh_test_all(machine, all_users, all_passwords)

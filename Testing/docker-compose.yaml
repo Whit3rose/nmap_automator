@@ -1,0 +1,7 @@
+services:
+  ssh:
+    build:
+      context: .
+      dockerfile: DockerfileSSH
+    ports:
+      - "22:22"
