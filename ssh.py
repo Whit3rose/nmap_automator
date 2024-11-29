@@ -3,14 +3,12 @@ import paramiko
 import socket
 import time
 
-def brute_force_ssh_connection():
-    print("starting_brute_force")
-
 
 def ssh_test_all(machine, all_users, all_passwords):
     print('Testing SSH Service')
     client = paramiko.SSHClient()
     grab_banner(machine)
+    get_all_possible_key_exchange_algorithms(machine, client)
     test_credentials(machine, client, all_users, all_passwords)
 
 
@@ -21,6 +19,16 @@ def grab_banner(machine):
     bytes = banner_socket.recv(1024)
     banner_socket.settimeout(5)
     print(f"Banner: {bytes.decode('utf-8')}")
+    # TODO parse banner for it's content - might not be possible as banner will sometimes be custom
+
+
+def get_all_possible_key_exchange_algorithms(machine, client):
+    transport = paramiko.Transport((machine.ip, 22))
+    transport.start_client()
+    kex_algorithms = transport.get_security_options().kex
+    transport.close()
+    print(f"Key Exchange Algorithms: {kex_algorithms}")
+
 
 def test_credentials(machine, client, all_users, all_passwords):
     print("Testing default passwords and usernames for SSH")
@@ -35,5 +43,7 @@ def test_credentials(machine, client, all_users, all_passwords):
                 continue
             except socket.error:
                 print("Connection went wrong")
+            except:
+                continue
             client.close()
     print("Brute Forcing done")
