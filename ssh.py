@@ -5,7 +5,7 @@ import time
 
 
 def ssh_test_all(machine, all_users, all_passwords):
-    print('Testing SSH Service')
+    print("Testing SSH Service")
     client = paramiko.SSHClient()
     grab_banner(machine)
     get_all_possible_key_exchange_algorithms(machine, client)

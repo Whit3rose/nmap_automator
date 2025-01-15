@@ -5,6 +5,7 @@ import socket
 
 import nmap_parser
 import ssh
+import telnet
 
 nmap_filename = 'test_nmap.xml'
 all_machines = nmap_parser.parse_nmap_file(nmap_filename)
@@ -30,3 +31,6 @@ for machine in all_machines:
         # SSH
         if port.portid == "22":
             ssh.ssh_test_all(machine, all_users, all_passwords)
+        # TELNET
+        if port.portid == "23":
+            telnet.telnet_test_all(machine, all_users, all_passwords)

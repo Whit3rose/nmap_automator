@@ -5,3 +5,9 @@ services:
       dockerfile: DockerfileSSH
     ports:
       - "22:22"
+  telnet:
+    build:
+      context: .
+      dockerfile: DockerfileTelnet
+    ports:
+      - "23:23"
