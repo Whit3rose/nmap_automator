@@ -7,6 +7,7 @@ import nmap_parser
 import test_ssh
 import test_telnet
 import test_redis
+import test_ntp
 
 nmap_filename = 'test_nmap.xml'
 all_machines = nmap_parser.parse_nmap_file(nmap_filename)
@@ -35,6 +36,9 @@ for machine in all_machines:
         # TELNET
         if port.portid == "23":
             test_telnet.telnet_test_all(machine, all_users, all_passwords)
+        # NTP
+        if port.portid == "123":
+            test_ntp.ntp_test_all(machine)
         # Redis
         if port.portid == "6379":
             test_redis.redis_test_all(machine, all_users, all_passwords)
