@@ -1,0 +1,14 @@
+FROM redis:latest
+
+ENV REDIS_PASSWORD redis
+RUN mkdir -p /usr/local/etc/redis/
+
+# create acl file with test users
+RUN echo "user default on >redis ~* +@all" > /usr/local/etc/redis/users.acl
+RUN echo "user user1 on >password123 ~* +@all" >> /usr/local/etc/redis/users.acl
+
+# set requirepass for user and add users through acl
+RUN echo "aclfile /usr/local/etc/redis/users.acl" > /usr/local/etc/redis/redis.conf
+
+EXPOSE 6379
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

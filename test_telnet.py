@@ -20,5 +20,5 @@ def test_credentials(machine, conn, all_users, all_passwords):
                 conn.login(account)
                 print(f"FOUND TELNET LOGIN: {user}:{password}")
             except exception.LoginFailure:
-                continue
+                pass
             conn.close()

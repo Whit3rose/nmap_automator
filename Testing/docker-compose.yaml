@@ -11,3 +11,9 @@ services:
       dockerfile: DockerfileTelnet
     ports:
       - "23:23"
+  redis:
+    build:
+      context: .
+      dockerfile: DockerfileRedis
+    ports:
+      - "6379:6379"

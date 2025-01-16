@@ -4,8 +4,9 @@ import paramiko
 import socket
 
 import nmap_parser
-import ssh
-import telnet
+import test_ssh
+import test_telnet
+import test_redis
 
 nmap_filename = 'test_nmap.xml'
 all_machines = nmap_parser.parse_nmap_file(nmap_filename)
@@ -30,7 +31,10 @@ for machine in all_machines:
 
         # SSH
         if port.portid == "22":
-            ssh.ssh_test_all(machine, all_users, all_passwords)
+            test_ssh.ssh_test_all(machine, all_users, all_passwords)
         # TELNET
         if port.portid == "23":
-            telnet.telnet_test_all(machine, all_users, all_passwords)
+            test_telnet.telnet_test_all(machine, all_users, all_passwords)
+        # Redis
+        if port.portid == "6379":
+            test_redis.redis_test_all(machine, all_users, all_passwords)
